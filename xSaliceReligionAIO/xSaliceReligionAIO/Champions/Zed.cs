@@ -416,6 +416,72 @@ namespace xSaliceReligionAIO.Champions
                         W.Cast(packets());
                     break;
 
+//Normal /without Ult
+         case 5:
+                    if (qTarget != null)
+                    {
+                        var dmg2 = GetComboDamage(qTarget);
+
+                        float range = Q.Range;
+                        if (GetTargetFocus(range) != null)
+                            qTarget = GetTargetFocus(range);
+
+
+                        if (GetMarked() != null)
+                            qTarget = GetMarked();
+
+                        if (GetComboDamage(qTarget) >= qTarget.Health && Ignite_Ready() && menu.Item("Ignite").GetValue<bool>() && Player.Distance(qTarget) < 300)
+                            Use_Ignite(qTarget);
+
+                        if (menu.Item("Botrk").GetValue<bool>())
+                        {
+                            if (HasBuff(qTarget, "zedulttargetmark")) 
+                                Use_Bilge(qTarget);
+
+                            if (HasBuff(qTarget, "zedulttargetmark"))
+                                Use_Botrk(qTarget);
+                        }
+                    }
+
+                    if (menu.Item("Prioritize_Q").GetValue<bool>())
+                    {
+                        if (useQ && W.LastCastAttemptT - Environment.TickCount > Game.Ping)
+                            Cast_Q();
+
+                        if (HasEnergy(false, W.IsReady() && useW, E.IsReady() && useE))
+                        {
+                            if (useW)
+                                Cast_W("Combo", false, useE);
+                        }
+                    }
+                    else
+                    {
+                        if (HasEnergy(Q.IsReady() && useQ, W.IsReady() && useW, E.IsReady() && useE))
+                        {
+                            if (useW)
+                                Cast_W("Combo", useQ, useE);
+                        }
+                        if (useQ && (!W.IsReady() || wSpell.ToggleState == 2))
+                        {
+                            Cast_Q();
+                        }
+                    }
+
+                    if (useE)
+                        Cast_E();
+
+                    if (WShadow == null)
+                        return;
+
+                    if(target == null)
+                        return;
+
+                    if (menu.Item("W_Follow_Combo").GetValue<bool>() && wSpell.ToggleState == 2 && Player.Distance(target) > WShadow.Distance(target) && HasBuff(target, "zedulttargetmark"))
+                        W.Cast(packets());
+                    break;
+
+                 }
+               }
             }
         }
 
@@ -879,6 +945,11 @@ namespace xSaliceReligionAIO.Champions
                 else if (mode == 3)
                 {
                     menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult" }, 4));
+                    _lasttick = Environment.TickCount + 300;
+                }
+                else if (mode == 4)
+                {
+                    menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult" }, 5));
                     _lasttick = Environment.TickCount + 300;
                 }
                 else
