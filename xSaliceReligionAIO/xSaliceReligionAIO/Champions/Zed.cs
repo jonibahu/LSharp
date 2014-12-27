@@ -416,6 +416,8 @@ namespace xSaliceReligionAIO.Champions
                     if (menu.Item("W_Follow_Combo").GetValue<bool>() && wSpell.ToggleState == 2 && Player.Distance(target) > WShadow.Distance(target) && HasBuff(target, "zedulttargetmark"))
                         W.Cast(packets());
                     break;
+            }
+               }
 
 //Normal /without Ult
          case 5:
