@@ -42,6 +42,7 @@ namespace xSaliceReligionAIO.Champions
                 key.AddItem(new MenuItem("LastHitQ", "Last hit with Q!").SetValue(new KeyBind("A".ToCharArray()[0], KeyBindType.Press)));
                 key.AddItem(new MenuItem("Switch_1", "Line Mode").SetValue(new KeyBind("U".ToCharArray()[0], KeyBindType.Press)));
                 key.AddItem(new MenuItem("Switch_2", "Coax Mode").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Press)));
+                key.AddItem(new MenuItem("Switch_3", "Rape Mode").SetValue(new KeyBind("P".ToCharArray()[0], KeyBindType.Press)));
                 key.AddItem(new MenuItem("Escape", "W To Mouse Escape").SetValue(new KeyBind("A".ToCharArray()[0], KeyBindType.Press)));
                 //add to menu
                 menu.AddSubMenu(key);
@@ -85,7 +86,7 @@ namespace xSaliceReligionAIO.Champions
             var combo = new Menu("Combo", "Combo");
             {
                 combo.AddItem(new MenuItem("selected", "Focus Selected Target").SetValue(true));
-                combo.AddItem(new MenuItem("Combo_mode", "Combo Mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult" })));
+                combo.AddItem(new MenuItem("Combo_mode", "Combo Mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult", "Rape Mode" })));
                 combo.AddItem(new MenuItem("Combo_Switch", "Switch mode Key").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
                 combo.AddItem(new MenuItem("UseQCombo", "Use Q").SetValue(true));
                 combo.AddItem(new MenuItem("Prioritize_Q", "Prioritize Q over W->Q").SetValue(true));
@@ -307,7 +308,7 @@ namespace xSaliceReligionAIO.Champions
                     if(useR)
                         LineCombo(useQ, useE);
                     else
-                        menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult" }));
+                        menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult", "Rape Mode" }));
                 break;
                 //Coax
                 case 2:
@@ -528,7 +529,7 @@ namespace xSaliceReligionAIO.Champions
                 {
                     W.Cast(packets());
                     Utility.DelayAction.Add(50, () => R.Cast(target, packets()));
-                    Utility.DelayAction.Add(300, () => menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult" })));
+                    Utility.DelayAction.Add(300, () => menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult", "Rape Mode" })));
                 }
             }
         }
@@ -576,7 +577,7 @@ namespace xSaliceReligionAIO.Champions
 
                             _willEHit = useE;
 
-                            Utility.DelayAction.Add(400, () => menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult" })));
+                            Utility.DelayAction.Add(400, () => menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult", "Rape Mode" })));
                         }
                     }
                 }
@@ -913,14 +914,14 @@ namespace xSaliceReligionAIO.Champions
 
             if (menu.Item("Switch_1").GetValue<KeyBind>().Active && lasttime > Game.Ping)
             {
-                menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult" }, 1));
+                menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult", "Rape Mode" }, 1));
                 _lasttick = Environment.TickCount + 300;
                 return;
             }
 
             if (menu.Item("Switch_2").GetValue<KeyBind>().Active && lasttime > Game.Ping)
             {
-                menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult" }, 2));
+                menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult", "Rape Mode" }, 2));
                 _lasttick = Environment.TickCount + 300;
                 return;
             }
@@ -929,32 +930,32 @@ namespace xSaliceReligionAIO.Champions
             {
                 if (mode == 0)
                 {
-                    menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult" }, 1));
+                    menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult", "Rape Mode" }, 1));
                     _lasttick = Environment.TickCount + 300;
                 }
                 else if (mode == 1)
                 {
-                    menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult" }, 2));
+                    menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult", "Rape Mode" }, 2));
                     _lasttick = Environment.TickCount + 300;
                 }
                 else if (mode == 2)
                 {
-                    menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult" }, 3));
+                    menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult", "Rape Mode" }, 3));
                     _lasttick = Environment.TickCount + 300;
                 }
                 else if (mode == 3)
                 {
-                    menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult" }, 4));
+                    menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult", "Rape Mode" }, 4));
                     _lasttick = Environment.TickCount + 300;
                 }
                 else if (mode == 4)
                 {
-                    menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult" }, 5));
+                    menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult", "Rape Mode" }, 5));
                     _lasttick = Environment.TickCount + 300;
                 }
                 else
                 {
-                    menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult" }));
+                    menu.Item("Combo_mode").SetValue(new StringList(new[] { "Normal", "Line Combo", "Coax", "Ult no W", "Normal With Ult", "Rape Mode" }));
                     _lasttick = Environment.TickCount + 300;
                 }
             }
