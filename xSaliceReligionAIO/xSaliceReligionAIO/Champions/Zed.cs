@@ -377,50 +377,9 @@ namespace xSaliceReligionAIO.Champions
 
                             if (HasBuff(qTarget, "zedulttargetmark"))
                                 Use_Botrk(qTarget);
-                        }
-                    }
-
-                    if (menu.Item("Prioritize_Q").GetValue<bool>())
-                    {
-                        if (useQ && W.LastCastAttemptT - Environment.TickCount > Game.Ping)
-                            Cast_Q();
-
-                        if (HasEnergy(false, W.IsReady() && useW, E.IsReady() && useE))
-                        {
-                            if (useW)
-                                Cast_W("Combo", false, useE);
-                        }
-                    }
-                    else
-                    {
-                        if (HasEnergy(Q.IsReady() && useQ, W.IsReady() && useW, E.IsReady() && useE))
-                        {
-                            if (useW)
-                                Cast_W("Combo", useQ, useE);
-                        }
-                        if (useQ && (!W.IsReady() || wSpell.ToggleState == 2))
-                        {
-                            Cast_Q();
-                        }
-                    }
-
-                    if (useE)
-                        Cast_E();
-
-                    if (WShadow == null)
-                        return;
-
-                    if(target == null)
-                        return;
-
-                    if (menu.Item("W_Follow_Combo").GetValue<bool>() && wSpell.ToggleState == 2 && Player.Distance(target) > WShadow.Distance(target) && HasBuff(target, "zedulttargetmark"))
-                        W.Cast(packets());
-                    break;
-            }
-               }
-
-//Normal /without Ult
-         case 5:
+                                //Normal /wout Ult
+                                break; 
+                                 case 5:
                     if (qTarget != null)
                     {
                         var dmg2 = GetComboDamage(qTarget);
@@ -482,11 +441,10 @@ namespace xSaliceReligionAIO.Champions
                     if (menu.Item("W_Follow_Combo").GetValue<bool>() && wSpell.ToggleState == 2 && Player.Distance(target) > WShadow.Distance(target) && HasBuff(target, "zedulttargetmark"))
                         W.Cast(packets());
                     break;
-
-                 }
-               }
             }
-        }
+               }
+
+
 
         private int _coaxDelay;
 
